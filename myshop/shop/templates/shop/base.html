@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,16 @@
     </div>
     <div id="subheader">
         <div class="cart">
-            Your Cart Is Empty
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+            your cart:
+            <a href="{% url 'cart:cart_detail' %}">
+                {{ total_items }} item{{ total_items|pluralize }} - ${{ cart.get_total_price }}
+            </a>
+            {% else %}
+            Your cart is empty
+            {% endif %}
+            {% endwith %}
         </div>
     </div>
     <div id="content">
@@ -24,3 +33,4 @@
     </div>
 </body>
 </html>
+
